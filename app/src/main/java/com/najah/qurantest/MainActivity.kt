@@ -30,7 +30,9 @@ class MainActivity : AppCompatActivity() {
         // Observe Questions LiveData
         viewModel.questions.observe(this) { questions ->
             // Handle the questions (log them for now)
-            questions.forEach { question ->
+            val sortedQuestions = questions.sortedBy { it.first().suraNo }
+
+            sortedQuestions.forEach { question ->
                 val firstWords = question.first().ayaText?.split(" ")?.take(6)?.joinToString(" ")
                 val lastWords = question.last().ayaText?.split(" ")?.takeLast(6)?.joinToString(" ")
                 val surahName = question.first().suraNameAr
@@ -47,11 +49,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Trigger Quiz Generation
-        viewModel.generateQuiz(
-            juzzStart = 30,
-            juzzEnd = 30,
+        viewModel.generateQuestions(
+            startJuz = 1,
+            endJuz = 30,
             numOfQuestions = 5,
-            numOfLines = 15
+            numOfLines = 130
         )
     }
 }
