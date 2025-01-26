@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base Slider Style -->
+    <style name="SliderStyle" parent="Widget.MaterialComponents.Slider">
+        <item name="haloColor">@color/primary_color</item>
+        <item name="thumbColor">@color/primary_color</item>
+        <item name="trackColor">@color/slider_inactive</item>
+        <item name="trackColorActive">@color/primary_color</item>
+        <item name="trackHeight">4dp</item>
+        <item name="labelStyle">@style/SliderLabelStyle</item>
+    </style>
+
+    <!-- Slider Label Style -->
+    <style name="SliderLabelStyle" parent="Widget.MaterialComponents.Tooltip">
+        <item name="android:background">@drawable/slider_label_background</item>
+        <item name="android:textColor">@color/slider_label_text</item>
+        <item name="android:textSize">14sp</item>
+        <item name="cornerRadius">4dp</item>
+        <item name="android:padding">8dp</item>
+    </style>
+</resources>

@@ -20,7 +20,9 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            //shrank
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -34,11 +36,21 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    buildFeatures {
+        viewBinding = true
+    }
+    bundle{
+        language{
+            enableSplit = true
+        }
+    }
 }
 
 dependencies {
     implementation (libs.androidx.room.runtime) // Room Runtime
     annotationProcessor (libs.androidx.room.compiler) // Room Compiler for generating code
+    implementation ("com.google.android.material:material:1.9.0")
+    implementation(libs.androidx.swiperefreshlayout)
 
     implementation(libs.kotlinx.coroutines.android)
     implementation (libs.androidx.lifecycle.viewmodel.ktx )

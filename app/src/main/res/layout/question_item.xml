@@ -1,0 +1,156 @@
+<!-- res/layout/item_question.xml -->
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:radius="26dp"
+
+    android:elevation="0dp"
+
+    android:background="@drawable/card_background">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+>
+
+
+        <!-- Collapsed Question View -->
+        <LinearLayout
+            android:background="@drawable/gradient_background"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="10dp"
+            >
+
+            <!-- Question Number Circle -->
+            <TextView
+                android:id="@+id/tvQuestionNumber"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/circle_background"
+                android:gravity="center"
+                android:text="1"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <!-- Question header -->
+            <TextView
+                android:layout_marginEnd="5dp"
+                android:id="@+id/tvQuestionHeader"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:text="السؤال"
+                android:fontFamily="@font/authmany_font"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/dark_blue"/>
+            <!-- Toggle Icon -->
+            <ImageView
+                android:id="@+id/btnToggle"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="5dp"
+                android:src="@drawable/baseline_keyboard_arrow_down_24"
+                app:tint="@color/dark_blue" />
+
+<!--            <ImageView-->
+<!--                android:id="@+id/btnRefresh"-->
+<!--                android:layout_width="35dp"-->
+<!--                android:layout_marginEnd="10dp"-->
+<!--                android:layout_height="35dp"-->
+<!--                android:src="@drawable/refresh"-->
+<!--                />-->
+
+
+
+        </LinearLayout>
+        <!-- Question Text -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:id="@+id/tvQuestionHeadOfQuesion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="15dp"
+                android:text="السؤال"
+                android:fontFamily="@font/authmany_font"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:layout_marginEnd="15dp"
+                android:text="من  :"
+                android:fontFamily="@font/authmany_font"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/dark_blue" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:id="@+id/tvQuestionEndOfQuesion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="15dp"
+                android:text="السؤال"
+                android:fontFamily="@font/authmany_font"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:layout_marginEnd="10dp"
+                android:text=" إلى قوله : "
+                android:fontFamily="@font/authmany_font"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/dark_blue" />
+
+        </LinearLayout>
+
+
+        <!-- Expanded Answer View -->
+        <TextView
+            android:id="@+id/tvAnswer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="الاجابة"
+            android:textSize="17sp"
+            android:layout_marginTop="15dp"
+            android:textStyle="bold"
+            android:fontFamily="@font/authmany_font"
+            android:paddingTop="8dp"
+            android:textColor="@color/dark_blue"
+            android:visibility="gone" />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

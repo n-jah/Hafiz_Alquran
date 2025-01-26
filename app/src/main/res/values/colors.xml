@@ -2,4 +2,17 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Primary Color for Thumb and Active Track -->
+
+    <color name="primary_color">#D38601</color>
+    <!-- Primary Color for Thumb and Active Track -->
+
+    <!-- Inactive Track Color -->
+    <color name="slider_inactive">#E0E0E0</color> <!-- Light Gray -->
+
+    <!-- Label Text Color -->
+    <color name="slider_label_text">#FFFFFF</color>
+    <color name="dark_blue">#000837</color> <!-- White -->
+
 </resources>

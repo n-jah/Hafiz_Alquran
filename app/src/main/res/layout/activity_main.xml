@@ -1,22 +1,262 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:background="@drawable/islamic_background"
+    android:layoutDirection="rtl"
+    android:padding="16dp">
 
-    <TextView
-        android:padding="15dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        android:id="@+id/tv"
-        android:fontFamily="@font/authmany_font"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <!-- This is the container that will look like a dialog -->
+    <FrameLayout
+        android:id="@+id/dialogContentContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/rounded_corner"
+        android:padding="16dp">
+        <ProgressBar
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:id="@+id/progressBar"
+            android:visibility="gone"
+            />
+
+        <!-- Add your content here -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <ImageView
+                android:id="@+id/logoImageView"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="8dp"
+                android:contentDescription="App Logo"
+                android:src="@drawable/quran_icon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/selectedRangeTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/authmany_font"
+                android:gravity="center"
+                android:text="إختبار الأجزاء"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/logoImageView" />
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/dropdownMenuLayout"
+
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rangeSlider">
+
+                <AutoCompleteTextView
+                    android:id="@+id/juzeDropdown"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:dropDownHeight="wrap_content"
+                    android:hint="اختر نطاق الأجزاء"
+                    android:inputType="none" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <!-- RangeSlider -->
+            <com.google.android.material.slider.RangeSlider
+                android:id="@+id/rangeSlider"
+                style="@style/SliderStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:stepSize="1"
+                android:valueFrom="1"
+                android:valueTo="30"
+                app:labelBehavior="withinBounds"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/selectedRangeTextView"
+                app:values="@array/initial_values" />
+
+            <TextView
+                android:id="@+id/quesions_count_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="20dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="اختار عدد الأسئلة"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dropdownMenuLayout" />
+
+            <LinearLayout
+                android:id="@+id/questionCountLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/quesions_count_tv">
+
+                <!-- Decrease Questions Button -->
+                <ImageButton
+                    android:id="@+id/decreaseQuestionsButton"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/circle_outline"
+                    android:contentDescription="Decrease Questions"
+                    android:focusable="true"
+                    android:scaleType="centerInside"
+                    android:scaleX="0.8"
+                    android:scaleY="0.8"
+                    android:clickable="true"
+                    android:src="@drawable/baseline_keyboard_arrow_down_24" />
+
+                <!-- Question Count EditText -->
+                <EditText
+                    android:id="@+id/questionCountEditText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:gravity="center"
+                    android:background="@drawable/squre_rounded_style"
+                    android:inputType="number"
+                    android:text="10"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <!-- Increase Questions Button -->
+                <ImageButton
+                    android:id="@+id/increaseQuestionsButton"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/circle_outline"
+                    android:contentDescription="Increase Questions"
+                    android:focusable="true"
+                    android:scaleType="centerInside"
+                    android:scaleX="0.8"
+                    android:clickable="true"
+                    android:scaleY="0.8"
+                    android:src="@drawable/baseline_keyboard_arrow_up_24" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/liens_count_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="20dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="اختار عدد السطور"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+
+                app:layout_constraintTop_toBottomOf="@+id/questionCountLayout" />
+
+
+            <!-- Start Quiz Button -->
+            <LinearLayout
+                android:id="@+id/lineCountLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/liens_count_tv">
+
+                <!-- Decrease Lines Button -->
+                <ImageButton
+                    android:id="@+id/decreaseLinesButton"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/circle_outline"
+                    android:clickable="true"
+                    android:contentDescription="Decrease Lines"
+                    android:focusable="true"
+                    android:scaleType="centerInside"
+                    android:scaleX="0.8"
+                    android:scaleY="0.8"
+                    android:src="@drawable/baseline_keyboard_arrow_down_24" />
+
+                <!-- Line Count EditText -->
+                <EditText
+                    android:id="@+id/lineCountEditText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:gravity="center"
+                    android:background="@drawable/squre_rounded_style"
+                    android:inputType="number"
+                    android:text="5"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <!-- Increase Lines Button -->
+                <ImageButton
+                    android:id="@+id/increaseLinesButton"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/circle_outline"
+                    android:clickable="true"
+                    android:contentDescription="Increase Lines"
+                    android:focusable="true"
+                    android:scaleType="centerInside"
+                    android:scaleX="0.8"
+                    android:scaleY="0.8"
+                    android:src="@drawable/baseline_keyboard_arrow_up_24" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/startQuizButton"
+                android:layout_width="0dp"
+
+                android:background="@drawable/button_style"
+                android:layout_height="wrap_content"
+                android:text="إبدأ الإختبار"
+                android:fontFamily="@font/authmany_font"
+                android:textColor="@color/white"
+                android:textSize="22sp"
+                android:layout_marginTop="40dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lineCountLayout" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
+    <!-- TextView for Range Information -->
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
