@@ -6,10 +6,10 @@
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     android:radius="26dp"
-
+    app:cardBackgroundColor="#FFFDFA"
+    app:cardCornerRadius="20dp"
     android:elevation="0dp"
-
-    android:background="@drawable/card_background">
+    >
 
     <LinearLayout
         android:orientation="vertical"

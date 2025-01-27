@@ -13,6 +13,7 @@ import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.material.slider.RangeSlider
 import com.najah.qurantest.R
 import com.najah.qurantest.databinding.ActivityMainBinding
@@ -40,9 +41,9 @@ class MainActivity : AppCompatActivity() {
     private var currentQuestionCount = 10 // Default initial value
     private var currentLineCount = 5      // Default initial value
     private val minQuestionCount = 1      // Minimum limit
-    private val maxQuestionCount = 100    // Maximum limit
+    private val maxQuestionCount = 30    // Maximum limit
     private val minLineCount = 5        // Minimum limit
-    private val maxLineCount = 100         // Maximum limit
+    private val maxLineCount = 25         // Maximum limit
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +53,9 @@ class MainActivity : AppCompatActivity() {
         dropdown = binding.juzeDropdown
         rangeSlider = binding.rangeSlider
         selectedRangeTextView = binding.selectedRangeTextView
+
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
         setupCounters()
         setupDropdown()
         setupRangeSlider()
