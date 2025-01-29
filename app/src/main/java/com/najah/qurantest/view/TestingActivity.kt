@@ -11,6 +11,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.najah.qurantest.R
 import com.najah.qurantest.adapter.QuestionAdapter
 import com.najah.qurantest.database.QuranDao
@@ -61,10 +62,8 @@ class TestingActivity : AppCompatActivity() {
 
             viewModel.generateQuestions(startJuz, endJuz, numOfQuestions, numOfLines)
             binding.swipeRefreshLayout.isRefreshing = false
-            binding.loadingIndecator.visibility = View.VISIBLE
-            binding.questionsRecyclerView.visibility = View.GONE
-            binding.loadingIndecator.visibility = View.GONE
-            binding.questionsRecyclerView.visibility = View.GONE
+            Toast.makeText(this,"تم تحديث الأسئلة",Toast.LENGTH_SHORT).show()
+
         }
 
     }
@@ -73,7 +72,7 @@ class TestingActivity : AppCompatActivity() {
 
         // Retrieve parameters from the Intent
          startJuz = intent.getIntExtra("START_JUZ", 1)
-         endJuz = intent.getIntExtra("END_JUZ", 2)
+         endJuz = intent.getIntExtra("END_JUZ", 30)
          numOfQuestions = intent.getIntExtra("NUM_OF_QUESTIONS", 10)
         numOfLines = intent.getIntExtra("NUM_OF_LINES", 5)
 
@@ -92,6 +91,7 @@ class TestingActivity : AppCompatActivity() {
                     binding.loadingIndecator.visibility = View.GONE
                     binding.questionsRecyclerView.visibility = View.VISIBLE
                     // Update the adapter with the questions
+
                     adapter.updateQuestions(result.data ?: emptyList())
                 }
                 is Result.Error -> {
@@ -123,5 +123,9 @@ class TestingActivity : AppCompatActivity() {
         viewModelFactory = QuranViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory)[QuranViewModel::class.java]
         viewModel.generateQuestions(startJuz, endJuz, numOfQuestions, numOfLines)
+    }
+
+    fun showMessage(view: View, message: String) {
+        Snackbar.make(view, message, Snackbar.LENGTH_SHORT).show()
     }
 }
