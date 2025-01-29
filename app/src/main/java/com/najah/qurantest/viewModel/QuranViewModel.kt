@@ -1,6 +1,5 @@
 package com.najah.qurantest.viewModel
 
-
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -17,15 +16,13 @@ class QuranViewModel(private val repository: QuranRepository) : ViewModel() {
 
     fun generateQuestions(startJuz: Int, endJuz: Int, numOfQuestions: Int, numOfLines: Int) {
         viewModelScope.launch {
-            _state.value = Result.Loading() // Set loading state before starting
-
+            _state.value = Result.Loading()
             try {
                 val selectedJuzRange = (startJuz..endJuz).toList()
                 val generatedQuestions = mutableListOf<List<QuranVerse>>()
-                val usedSurahs = mutableSetOf<Int>() // Track used Surahs
-                val usedRanges = mutableSetOf<Pair<Int, Int>>() // Track used verse ranges
+                val usedSurahs = mutableSetOf<Int>()
+                val usedRanges = mutableSetOf<Pair<Int, Int>>()
 
-                // Divide the selected Juz range into parts
                 val segments = divideJuzRange(selectedJuzRange, numOfQuestions)
                 Log.d("QuranViewModel", "Generated segments: $segments")
 
@@ -33,73 +30,69 @@ class QuranViewModel(private val repository: QuranRepository) : ViewModel() {
                     val selectedJuz = segments[index]
                     val surahsInJuz = repository.getSurahsInJuz(selectedJuz)
 
-                    // Prevent Fatiha from appearing in questions
                     if (selectedJuz == 1) {
-                        usedSurahs.add(1)
+                        usedSurahs.add(1) // Exclude Fatiha
                     }
 
-                    // Filter out Surahs that have already been used
-                    val availableSurahs = surahsInJuz.filter { it !in usedSurahs }
-                    Log.d("QuranViewModel", "Available Surahs in Juz $selectedJuz: $availableSurahs")
+                    var availableSurahs = surahsInJuz.filter { it !in usedSurahs }
+                    if (availableSurahs.isEmpty()) {
+                        // If all Surahs are used, retry with previously used ones
+                        availableSurahs = surahsInJuz
+                        Log.w("QuranViewModel", "Retrying with same Surah in Juz $selectedJuz")
+                    }
 
                     if (availableSurahs.isNotEmpty()) {
                         val randomSurah = availableSurahs.random()
-                        if (randomSurah !in listOf(2, 3, 4)) {
-                            usedSurahs.add(randomSurah) // Mark this Surah as used
+                        if (randomSurah !in setOf(2, 3)) {
+                            usedSurahs.add(randomSurah)
                         }
 
                         val verses = repository.getVersesInSurah(randomSurah)
-                        val randomStartIndex = verses.indices.random()
-
-                        // Dynamically adjust the number of lines based on available verses
                         val adjustedNumOfLines = adjustNumOfLines(verses, numOfLines, selectedJuz)
 
-                        val question = generateQuestionWithinSurah(
-                            verses,
-                            randomStartIndex,
-                            adjustedNumOfLines,
-                            usedRanges // Pass usedRanges to avoid duplicate ranges
-                        )
+                        var question: List<QuranVerse> = emptyList()
+                        var questionRange: Pair<Int, Int> = Pair(-1, -1)
+                        var attempt = 0
+                        val maxAttempts = 10
 
-                        // Only add the question if it meets the required number of lines
-                        if (question.size >= adjustedNumOfLines) {
-                            val sortedQuestion = question.sortedBy { it.id } // Sort by ID
-                            generatedQuestions.add(sortedQuestion)
-                            Log.d("QuranViewModel", "Generated Question: $sortedQuestion")
+                        do {
+                            if (attempt >= maxAttempts) {
+                                Log.w("QuranViewModel", "Max attempts reached. Retrying with the same Surah.")
+                                break
+                            }
+
+                            question = generateQuestionWithinSurah(verses, adjustedNumOfLines, usedRanges)
+                            if (question.isNotEmpty()) {
+                                val startId = question.first().id ?: -1
+                                val endId = question.last().id ?: -1
+                                questionRange = Pair(startId, endId)
+                            } else {
+                                questionRange = Pair(-1, -1)
+                            }
+                            attempt++
+                        } while (usedRanges.contains(questionRange))
+
+                        if (question.isNotEmpty()) {
+                            usedRanges.add(questionRange)
+                            generatedQuestions.add(question)
+                            Log.d("QuranViewModel", "Generated Question: $question")
+                        } else {
+                            Log.w("QuranViewModel", "Failed to generate a valid question in Surah $randomSurah")
                         }
                     } else {
                         Log.w("QuranViewModel", "No available Surahs left in Juz $selectedJuz")
                     }
                 }
 
-                // If the number of questions exceeds available Surahs, repeat some Surahs
                 if (generatedQuestions.size < numOfQuestions) {
-                    Log.w("QuranViewModel", "Not enough unique Surahs. Repeating some Surahs.")
-                    val remainingQuestions = numOfQuestions - generatedQuestions.size
-                    val repeatedQuestions = mutableListOf<List<QuranVerse>>()
-
-                    repeat(remainingQuestions) {
-                        val randomQuestion = generatedQuestions.random()
-                        repeatedQuestions.add(randomQuestion)
-                    }
-                    generatedQuestions.addAll(repeatedQuestions)
+                    Log.w("QuranViewModel", "Not enough unique Surahs. Reducing the number of questions.")
                 }
 
-                Log.d("QuranViewModels", "Generated Questions: ${generatedQuestions.map {
-                        question -> question.map { it.id }
-                }}")
-
-                // Sort each question's verses by ID, then sort the list of questions by the first verse's ID
                 val sortedGeneratedQuestions = generatedQuestions.map { question ->
                     question.sortedBy { it.id }
                 }.sortedBy { it.firstOrNull()?.id ?: Int.MAX_VALUE }
 
-                Log.d("QuranViewModels", "sorted Questions: ${sortedGeneratedQuestions.map {
-                        question -> question.map { it.id }
-                }}")
-
                 _state.value = Result.Success(sortedGeneratedQuestions)
-
             } catch (e: Exception) {
                 Log.e("QuranViewModel", "Error generating questions", e)
                 _state.value = Result.Error(e.message ?: "Unknown error")
@@ -150,29 +143,47 @@ class QuranViewModel(private val repository: QuranRepository) : ViewModel() {
 
     private fun generateQuestionWithinSurah(
         verses: List<QuranVerse>,
-        randomStartIndex: Int,
         numOfLines: Int,
         usedRanges: MutableSet<Pair<Int, Int>> // Track used verse ranges
     ): List<QuranVerse> {
         val availableRanges = mutableListOf<Pair<Int, Int>>()
+        val minDistance = when {
+            verses.size > 100 -> 10 // Longer Surahs
+            verses.size > 50 -> 5  // Medium-length Surahs
+            else -> 3              // Shorter Surahs
+        }
 
-        // Find all possible non-overlapping ranges
+        // Find all possible non-overlapping ranges with minimum distance
         for (i in 0 until verses.size - numOfLines) {
-            val range = Pair(i, i + numOfLines - 1)
-            if (!usedRanges.contains(range)) {
+            val range = Pair(verses[i].id ?: -1, verses[i + numOfLines - 1].id ?: -1)
+
+            // Check if this range is too close to any used range
+            val isTooClose = usedRanges.any { usedRange ->
+                val usedStart = usedRange.first
+                val usedEnd = usedRange.second
+                val currentStart = range.first
+                val currentEnd = range.second
+
+                // Check if the current range is within `minDistance` of any used range
+                (currentStart in (usedStart - minDistance)..(usedEnd + minDistance)) ||
+                        (currentEnd in (usedStart - minDistance)..(usedEnd + minDistance))
+            }
+
+            if (!isTooClose) {
                 availableRanges.add(range)
             }
         }
 
         if (availableRanges.isEmpty()) {
-            Log.w("QuranViewModel", "No unique ranges left in this Surah.")
+            Log.w("QuranViewModel", "No unique ranges left in this Surah with minimum distance.")
             return emptyList() // No more unique questions can be generated
         }
 
         // Select a non-repeating range
-        val (start, end) = availableRanges.random()
-        usedRanges.add(Pair(start, end))
+        val (startId, endId) = availableRanges.random()
+        val startIndex = verses.indexOfFirst { it.id == startId }
+        val endIndex = verses.indexOfFirst { it.id == endId }
 
-        return verses.subList(start, end + 1)
+        return verses.subList(startIndex, endIndex + 1)
     }
 }
