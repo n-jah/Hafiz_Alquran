@@ -105,6 +105,8 @@ class MainActivity : AppCompatActivity() {
             val selectedRange = ranges[position].first
             rangeSlider.values = listOf(selectedRange.first.toFloat(), selectedRange.second.toFloat())
         }
+
+        dropdown.selectionEnd
     }
 
     private fun setupRangeSlider() {

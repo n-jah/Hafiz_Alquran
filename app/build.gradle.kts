@@ -49,8 +49,9 @@ android {
 dependencies {
     implementation (libs.androidx.room.runtime) // Room Runtime
     annotationProcessor (libs.androidx.room.compiler) // Room Compiler for generating code
-    implementation ("com.google.android.material:material:1.9.0")
+    implementation (libs.material.v190)
     implementation(libs.androidx.swiperefreshlayout)
+    implementation (libs.androidx.core.splashscreen)
 
     implementation(libs.kotlinx.coroutines.android)
     implementation (libs.androidx.lifecycle.viewmodel.ktx )

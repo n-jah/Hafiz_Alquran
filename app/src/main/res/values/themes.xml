@@ -7,6 +7,5 @@
          <item name="colorPrimary">@color/primary_color</item>
     </style>
 
-
     <style name="Theme.QuranTest" parent="Base.Theme.QuranTest" />
 </resources>

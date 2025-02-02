@@ -13,6 +13,13 @@
 
     <!-- Label Text Color -->
     <color name="slider_label_text">#FFFFFF</color>
+
+
     <color name="dark_blue">#000837</color> <!-- White -->
+    <color name="dark_red">#B71C1C</color> <!-- Dark Red -->
+    <color name="orange">#FF5100</color> <!-- Orange -->
+    <color name="yellow">#FF9900</color> <!-- Yellow -->
+    <color name="blue">#1E88E5</color> <!-- Blue -->
+    <color name="green">#388E3C</color> <!-- Green -->
 
 </resources>
