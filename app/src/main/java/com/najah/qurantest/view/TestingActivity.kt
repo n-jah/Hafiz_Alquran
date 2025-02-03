@@ -69,10 +69,8 @@ class TestingActivity : AppCompatActivity() {
         tvlayoutGrade = binding.tvCollectedDegrees
 
         tvlayoutGrade.visibility = View.GONE // Initially hidden
-
         // Retrieve data from intent
         getIntentData()
-
         // Initialize ViewModel, RecyclerView, and Observers
         initViewModel()
         initRV()
@@ -82,12 +80,6 @@ class TestingActivity : AppCompatActivity() {
         binding.swipeRefreshLayout.setOnRefreshListener {
             refreshQuestions()
         }
-    }
-
-    override fun onResume() {
-        initRV()
-        super.onResume()
-
     }
 
     private fun getIntentData() {
@@ -127,6 +119,12 @@ class TestingActivity : AppCompatActivity() {
                 }
             }
         }
+
+        viewModel.gradesLiveData.observe(this) { (totalAnswered, averageGrade) ->
+            tvTotalAnswered.text = "الإجابات: $totalAnswered"
+            tvAverageGrade.text = "المعدل: ${averageGrade.toInt()}%"
+            tvlayoutGrade.visibility = if (totalAnswered > 0) View.VISIBLE else View.GONE
+        }
     }
 
     private fun initRV() {
@@ -136,13 +134,10 @@ class TestingActivity : AppCompatActivity() {
         // Initialize the adapter with a callback to update the UI
 
 
-        adapter = QuestionAdapter(emptyList()) { totalAnswered, averageGrade ->
-            tvTotalAnswered.text = "الإجابات: $totalAnswered"
-            tvAverageGrade.text = "المعدل: ${averageGrade.toInt()}%"
-            tvlayoutGrade.visibility = if (totalAnswered > 0) View.VISIBLE else View.GONE
-            Log.d("QuestionAdapter", "the adapter is $adapter and the totoal answered is $totalAnswered  and the average grade is $averageGrade")
-        }
+        adapter = QuestionAdapter(emptyList(), viewModel)
+
         recyclerView.adapter = adapter
+
     }
 
     private fun initViewModel() {
@@ -157,10 +152,17 @@ class TestingActivity : AppCompatActivity() {
 private fun refreshQuestions() {
     // Refresh the questions and reset the UI
     viewModel.generateQuestions(startJuz, endJuz, numOfQuestions, numOfLines)
+    adapter.clearSelectedGrades()
+    viewModel.updateGrades(emptyMap())
 //    //refresh activity
 //    finish()
 //    startActivity(intent)
     binding.swipeRefreshLayout.isRefreshing = false
+
+
     Toast.makeText(this, "تم تحديث الأسئلة", Toast.LENGTH_SHORT).show()
 }
+
+
+
 }

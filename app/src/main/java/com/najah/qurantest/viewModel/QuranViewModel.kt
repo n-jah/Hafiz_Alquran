@@ -14,6 +14,34 @@ class QuranViewModel(private val repository: QuranRepository) : ViewModel() {
     private val _state = MutableLiveData<Result<List<List<QuranVerse>>>>(Result.Loading())
     val state: LiveData<Result<List<List<QuranVerse>>>> get() = _state
 
+    private val _gradesLiveData = MutableLiveData<Pair<Int, Float>>()
+    val gradesLiveData: LiveData<Pair<Int, Float>> get() = _gradesLiveData
+
+    init {
+        _gradesLiveData.value = Pair(0, 0f)
+    }
+
+
+    fun updateGrades(selectedGrades: Map<Int, Int?>) {
+        var totalAnswered = 0
+        var totalGrade = 0f
+
+        selectedGrades.forEach { (_, grade) ->
+            if (grade != null) {
+                totalAnswered++
+                totalGrade += grade.toFloat()
+            }
+        }
+
+        // Reset totalAnswered to 0 if refreshing
+        if (selectedGrades.isEmpty()) {
+            _gradesLiveData.value = Pair(0, 0f)
+        } else {
+            val averageGrade = if (totalAnswered > 0) totalGrade / totalAnswered else 0f
+            _gradesLiveData.value = Pair(totalAnswered, averageGrade)
+        }
+    }
+
     fun generateQuestions(startJuz: Int, endJuz: Int, numOfQuestions: Int, numOfLines: Int) {
         viewModelScope.launch {
             _state.value = Result.Loading()
@@ -91,6 +119,7 @@ class QuranViewModel(private val repository: QuranRepository) : ViewModel() {
                 val sortedGeneratedQuestions = generatedQuestions.map { question ->
                     question.sortedBy { it.id }
                 }.sortedBy { it.firstOrNull()?.id ?: Int.MAX_VALUE }
+
 
                 _state.value = Result.Success(sortedGeneratedQuestions)
             } catch (e: Exception) {
@@ -186,4 +215,7 @@ class QuranViewModel(private val repository: QuranRepository) : ViewModel() {
 
         return verses.subList(startIndex, endIndex + 1)
     }
+
+
+
 }

@@ -243,7 +243,6 @@
             <Button
                 android:id="@+id/startQuizButton"
                 android:layout_width="0dp"
-
                 android:background="@drawable/button_style"
                 android:layout_height="wrap_content"
                 android:text="إبدأ الإختبار"
