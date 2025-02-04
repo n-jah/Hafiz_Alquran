@@ -75,13 +75,11 @@ class TestingActivity : AppCompatActivity() {
         initViewModel()
         initRV()
         initObservers()
-
         // Set up swipe-to-refresh listener
         binding.swipeRefreshLayout.setOnRefreshListener {
             refreshQuestions()
         }
     }
-
     private fun getIntentData() {
         // Retrieve parameters from the Intent
         startJuz = intent.getIntExtra("START_JUZ", 1)

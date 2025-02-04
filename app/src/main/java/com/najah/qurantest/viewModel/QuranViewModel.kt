@@ -92,7 +92,6 @@ class QuranViewModel(private val repository: QuranRepository) : ViewModel() {
                                     Log.w("QuranViewModel", "Max attempts reached. Retrying with the same Surah.")
                                     break
                                 }
-
                                 question = generateQuestionWithinSurah(verses, adjustedNumOfLines, usedRanges)
                                 if (question.isNotEmpty()) {
                                     val startId = question.first().id ?: -1
@@ -221,7 +220,4 @@ class QuranViewModel(private val repository: QuranRepository) : ViewModel() {
 
         return verses.subList(startIndex, endIndex + 1)
     }
-
-
-
 }
