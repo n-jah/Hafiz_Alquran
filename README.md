@@ -1,4 +1,4 @@
-# Quran Memorization Review App 🕌🕋🤲🌙
+# Quran Memorization Review App 🕌📲🤲🌙
 
 Welcome to the **Quran Memorization Review App**! This app is designed to help you improve your Quran memorization by providing a dynamic, interactive, and intelligent platform for reviewing and testing your knowledge. Whether you're a beginner or an advanced memorizer, this app has something for everyone.
 
@@ -8,7 +8,17 @@ Welcome to the **Quran Memorization Review App**! This app is designed to help y
 
 *Coming Soon!*
 
-Add some screenshots and a demo here to showcase the user interface and user experience of your app. This section can highlight key features like test generation, grade tracking, and the interactive user interface.
+<div align="center">
+  <img src="https://raw.githubusercontent.com/n-jah//QuranTest/master/media/gif1.gif" width="200" alt="Authentication" />
+    <img src="https://raw.githubusercontent.com/n-jah//QuranTest/master/media/gif2.gif" width="200" alt="screen" />
+      <img src="https://raw.githubusercontent.com/n-jah//QuranTest/master/media/screen%201.png" width="200" alt="screen" />
+    <img src="https://raw.githubusercontent.com/n-jah//QuranTest/master/media/screen2.png" width="200" alt="screen" />
+    <img src="https://raw.githubusercontent.com/n-jah//QuranTest/master/media/screen22.png" width="200" alt="screen" />
+    <img src="https://raw.githubusercontent.com/n-jah//QuranTest/master/media/screen23.png" width="200" alt="screen" />
+    <img src="https://raw.githubusercontent.com/n-jah//QuranTest/master/media/screen3.png" width="200" alt="screen" />
+
+</div>
+
 
 ---
 
