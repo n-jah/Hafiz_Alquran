@@ -6,7 +6,6 @@ Welcome to the **Quran Memorization Review App**! This app is designed to help y
 
 ## 📱 **Screenshots & Demos**
 
-*Coming Soon!*
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/n-jah//QuranTest/master/media/gif1.gif" width="200" alt="Authentication" />
