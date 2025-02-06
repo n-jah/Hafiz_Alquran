@@ -1,4 +1,4 @@
-# Quran Memorization Review App 🕌📲🤲🌙
+# Quran Memorization Review App 📖📲🤲🌙
 
 Welcome to the **Quran Memorization Review App**! This app is designed to help you improve your Quran memorization by providing a dynamic, interactive, and intelligent platform for reviewing and testing your knowledge. Whether you're a beginner or an advanced memorizer, this app has something for everyone.
 
