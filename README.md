@@ -11,7 +11,7 @@ Welcome to the **Quran Memorization Review App**! This app is designed to help y
 <div align="center">
   <img src="https://raw.githubusercontent.com/n-jah//QuranTest/master/media/gif1.gif" width="200" alt="Authentication" />
     <img src="https://raw.githubusercontent.com/n-jah//QuranTest/master/media/gif2.gif" width="200" alt="screen" />
-      <img src="https://raw.githubusercontent.com/n-jah//QuranTest/master/media/screen%201.png" width="200" alt="screen" />
+      <img src="https://raw.githubusercontent.com/n-jah//QuranTest/master/media/screen.png" width="200" alt="screen" />
     <img src="https://raw.githubusercontent.com/n-jah//QuranTest/master/media/screen2.png" width="200" alt="screen" />
     <img src="https://raw.githubusercontent.com/n-jah//QuranTest/master/media/screen22.png" width="200" alt="screen" />
     <img src="https://raw.githubusercontent.com/n-jah//QuranTest/master/media/screen23.png" width="200" alt="screen" />
