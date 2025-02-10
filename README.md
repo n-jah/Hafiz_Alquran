@@ -41,7 +41,7 @@ Welcome to the **Quran Memorization Review App**! This app is designed to help y
   The app ensures that **questions don’t overlap or repeat**. This guarantees you get a fresh set of questions every time, helping you reinforce your memorization without the boredom of reviewing the same material over and over again.
 
 - **Quranic Verses Database**  
-  All Quranic data is stored in a local **SQLite database**, ensuring offline functionality and fast access to verses.
+  All Quranic data is stored in a local **Room DB**, ensuring offline functionality and fast access to verses.
   
 - **Grades Tracking**  
   Track your progress with a detailed grade system. The app calculates the average grade for each session based on your performance.
