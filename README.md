@@ -112,6 +112,11 @@ We’d love to see how you can improve this app and make Quran memorization even
 
 ---
 
-## 📝 **License**
+## 📝 License
 
-This project is licensed under the MIT License – see the [LICENSE](LICENSE) file for details.
+This project is licensed under the **Creative Commons Attribution-NonCommercial 4.0 International License**.  
+You may not use, modify, or distribute this work for commercial purposes without explicit permission from the author.
+
+For more details, check the [LICENSE](LICENSE) file or visit:  
+[Creative Commons BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/)
+
