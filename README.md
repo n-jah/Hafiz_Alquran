@@ -52,14 +52,14 @@ Welcome to the **Quran Memorization Review App**! This app is designed to help y
 ---
 ## 🧑‍💻 **How It Works**
 
-The app uses a **SQLite database & Room** to store the Quranic verses, allowing you to access and review the content offline. When you select a range of verses or a specific Surah, the app will randomly generate questions within that range.
+The app uses a **Room** to store the Quranic verses, allowing you to access and review the content offline. When you select a range of verses or a specific Surah, the app will randomly generate questions within that range.
 
 - **Generate Questions:** The questions are designed to help you focus on a specific range of verses, making it easier to concentrate on your weak areas.
 - **Track Grades:** As you progress through the review questions, the app will calculate your **grades** based on your answers and display your overall progress.
 
 ### **App Logic Breakdown:**
 
-1. **Database Initialization**: The Quranic verses are stored in a local SQLite database with fields such as Surah, Ayah, Juz, and Page. This ensures quick offline access and allows for easy generation of questions based on specific criteria.
+1. **Database Initialization**: The Quranic verses are stored in a local database with fields such as Surah, Ayah, Juz, and Page. This ensures quick offline access and allows for easy generation of questions based on specific criteria.
    
 2. **Question Generation Logic**:
    - When the user selects a range of verses (either by Juz, Surah, or Page), the app fetches verses from the database that match the selected criteria.
@@ -74,7 +74,7 @@ The app uses a **SQLite database & Room** to store the Quranic verses, allowing 
 
 ## 📦 **Tech Stack**
 
-- **SQLite & Room** – Database for storing Quranic verses locally.
+- **Room** – Database for storing Quranic verses locally.
 - **Kotlin** – Programming language used to build the app.
 - **MVVM Architecture** – Ensures clean code separation between the UI, ViewModel, and data.
 - **LiveData & ViewModel** – For data management and UI updates.
